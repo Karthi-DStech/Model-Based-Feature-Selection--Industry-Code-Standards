@@ -1,0 +1,368 @@
+==========================================================================================
+          Predicting the Stage of Liver Cirrhosis LOG REPORT          
+==========================================================================================
+
+Log created at: 2024-08-03 21:48:35
+
+Model Utilised for the Experiment: XGBClassifier
+
+==========================================================================================
+DATA LOADING:
+
+
+  Data loaded: True
+
+
+  Total samples: 418
+
+
+  Total features: 20
+
+
+  Missing values: Yes
+
+
+  Dataframe info: <class 'pandas.core.frame.DataFrame'>
+RangeIndex: 418 entries, 0 to 417
+Data columns (total 20 columns):
+ #   Column         Non-Null Count  Dtype  
+---  ------         --------------  -----  
+ 0   ID             418 non-null    int64  
+ 1   N_Days         418 non-null    int64  
+ 2   Status         418 non-null    object 
+ 3   Drug           312 non-null    object 
+ 4   Age            418 non-null    int64  
+ 5   Sex            418 non-null    object 
+ 6   Ascites        312 non-null    object 
+ 7   Hepatomegaly   312 non-null    object 
+ 8   Spiders        312 non-null    object 
+ 9   Edema          418 non-null    object 
+ 10  Bilirubin      418 non-null    float64
+ 11  Cholesterol    284 non-null    float64
+ 12  Albumin        418 non-null    float64
+ 13  Copper         310 non-null    float64
+ 14  Alk_Phos       312 non-null    float64
+ 15  SGOT           312 non-null    float64
+ 16  Tryglicerides  282 non-null    float64
+ 17  Platelets      407 non-null    float64
+ 18  Prothrombin    416 non-null    float64
+ 19  Stage          412 non-null    float64
+dtypes: float64(10), int64(3), object(7)
+memory usage: 65.4+ KB
+
+
+--------------------------------------------------------------------------------
+DATA PROCESSING:
+
+
+  Missing values:
+
+    ID: 0
+    N_Days: 0
+    Status: 0
+    Drug: 106
+    Age: 0
+    Sex: 0
+    Ascites: 106
+    Hepatomegaly: 106
+    Spiders: 106
+    Edema: 0
+    Bilirubin: 0
+    Cholesterol: 134
+    Albumin: 0
+    Copper: 108
+    Alk_Phos: 106
+    SGOT: 106
+    Tryglicerides: 136
+    Platelets: 11
+    Prothrombin: 2
+    Stage: 6
+
+
+  Categorical columns: ['Status', 'Drug', 'Sex', 'Ascites', 'Hepatomegaly', 'Spiders', 'Edema']
+
+
+  Numeric columns: ['ID', 'N_Days', 'Age', 'Bilirubin', 'Cholesterol', 'Albumin', 'Copper', 'Alk_Phos', 'SGOT', 'Tryglicerides', 'Platelets', 'Prothrombin', 'Stage']
+
+
+  Other columns: None
+
+
+  Imputation methods:
+
+    Drug: fillna
+    Ascites: fillna
+    Hepatomegaly: fillna
+    Spiders: fillna
+    Cholesterol: mean
+    Albumin: mean
+    Copper: mean
+    Alk_Phos: mean
+    SGOT: mean
+    Tryglicerides: mean
+    Platelets: mean
+    Prothrombin: mean
+    Stage: mode
+
+
+  Encoded columns:
+
+    label_encoded: ['Sex', 'Edema', 'Status']
+    one_hot_encoded: ['Drug', 'Hepatomegaly', 'Spiders', 'Ascites']
+
+
+  Dropped columns: ['Age']
+
+
+  Final number of columns: 23
+
+
+  Final columns: Index(['ID', 'N_Days', 'Status', 'Sex', 'Edema', 'Bilirubin', 'Cholesterol',
+       'Albumin', 'Copper', 'Alk_Phos', 'SGOT', 'Tryglicerides', 'Platelets',
+       'Prothrombin', 'Stage', 'Drug_Placebo', 'Drug_Unknown',
+       'Hepatomegaly_Unknown', 'Hepatomegaly_Y', 'Spiders_Unknown',
+       'Spiders_Y', 'Ascites_Unknown', 'Ascites_Y'],
+      dtype='object')
+
+--------------------------------------------------------------------------------
+TRAIN TEST SPLIT:
+
+
+  Target column: Status
+
+
+  Test size: 0.3
+
+
+  Train size: 292
+
+
+  Test size count: 126
+
+
+  Scaling: StandardScaler
+
+
+  Checks: All checks passed successfully
+
+--------------------------------------------------------------------------------
+MODEL TRAINING:
+
+
+  Model was opted to handle missing values: False
+
+
+  Model name: XGBClassifier
+
+
+  Training started: 2024-08-03 21:48:35
+
+
+  Training completed: 2024-08-03 21:48:35
+
+
+  Training duration: 0.07 seconds
+
+
+  Status: completed
+
+
+  Feature importance calculation status: started
+
+
+  Feature importance technique: Plot Tree Importance
+
+
+  Feature importance calculation: completed
+
+
+  Number of features selected: 5
+
+
+  Feature importance: 
++----+----------------+---------------------+
+|    |    Feature     |     Importance      |
++----+----------------+---------------------+
+| 1  |     N_Days     | 0.13558277487754822 |
+| 4  |   Bilirubin    | 0.13439716398715973 |
+| 2  |      Sex       | 0.08377781510353088 |
+| 17 | Hepatomegaly_Y | 0.08154456317424774 |
+| 0  |       ID       | 0.08070970326662064 |
++----+----------------+---------------------+
+
+
+--------------------------------------------------------------------------------
+MODEL EVALUATION:
+
+
+  Accuracy: 0.873015873015873
+
+
+  Classification report:               precision    recall  f1-score   support
+
+           0       0.89      0.93      0.91        72
+           1       0.00      0.00      0.00         8
+           2       0.84      0.93      0.89        46
+
+    accuracy                           0.87       126
+   macro avg       0.58      0.62      0.60       126
+weighted avg       0.82      0.87      0.84       126
+
+
+--------------------------------------------------------------------------------
+MODEL TUNING:
+
+
+  Tuning started: 2024-08-03 21:48:35
+
+
+  Method: Optuna for hyperparameter tuning
+
+
+  N trials: 100
+
+
+  Best hyperparameters:
+
+    n_estimators: 155
+    learning_rate: 0.09984154440675685
+    max_depth: 8
+    min_child_weight: 3
+    subsample: 0.6042864233540552
+    colsample_bytree: 0.6800804263135307
+    gamma: 0.5761096256085336
+    reg_alpha: 0.30948572552061016
+    reg_lambda: 0.36160067036510035
+
+
+  Tuning completed: 2024-08-03 21:48:41
+
+
+  Tuning duration: 6.19 seconds
+
+
+  Status: completed
+
+
+  Feature importance calculation status: started
+
+
+  Feature importance technique: Plot Tree Importance
+
+
+  Feature importance calculation: completed
+
+
+  Number of features selected: 5
+
+
+  Feature importance: 
++----+-------------+---------------------+
+|    |   Feature   |     Importance      |
++----+-------------+---------------------+
+| 4  |  Bilirubin  | 0.10075471550226212 |
+| 1  |   N_Days    |  0.092025026679039  |
+| 12 | Prothrombin | 0.07385557889938354 |
+| 0  |     ID      | 0.06617053598165512 |
+| 5  | Cholesterol | 0.05882072448730469 |
++----+-------------+---------------------+
+
+
+--------------------------------------------------------------------------------
+MODEL TUNING EVALUATION:
+
+
+  Accuracy: 0.8888888888888888
+
+
+  Classification report:               precision    recall  f1-score   support
+
+           0       0.91      0.94      0.93        72
+           1       1.00      0.12      0.22         8
+           2       0.86      0.93      0.90        46
+
+    accuracy                           0.89       126
+   macro avg       0.92      0.67      0.68       126
+weighted avg       0.90      0.89      0.87       126
+
+
+--------------------------------------------------------------------------------
+MODEL SAVING:
+
+
+  Model path: /Users/karthik/My-Github-Repos/ml-indus/artifacts/models/XGBClassifier_2024-08-03_21-50-22_model.pkl
+
+--------------------------------------------------------------------------------
+SFS BEFORE TUNING:
+
+
+  Status: Started
+
+
+  Method of sfs: best
+
+
+  Verbose: 1
+
+
+  Scoring: accuracy
+
+
+  Cross validation: 5
+
+
+  Number of features selected: 7
+
+
+  Sfs feature importance table: 
++---+--------------+--------------------+
+|   |   Feature    |  Importance Score  |
++---+--------------+--------------------+
+| 0 |      ID      | 0.8289304500292227 |
+| 1 |    N_Days    | 0.8289304500292227 |
+| 2 |    Edema     | 0.8289304500292227 |
+| 3 |  Bilirubin   | 0.8289304500292227 |
+| 4 | Prothrombin  | 0.8289304500292227 |
+| 5 |    Stage     | 0.8289304500292227 |
+| 6 | Drug_Unknown | 0.8289304500292227 |
++---+--------------+--------------------+
+
+
+--------------------------------------------------------------------------------
+SFS AFTER TUNING:
+
+
+  Status: Started
+
+
+  Method of sfs: best
+
+
+  Verbose: 1
+
+
+  Scoring: accuracy
+
+
+  Cross validation: 5
+
+
+  Number of features selected: 7
+
+
+  Sfs feature importance table: 
++---+--------------+--------------------+
+|   |   Feature    |  Importance Score  |
++---+--------------+--------------------+
+| 0 |      ID      | 0.8289304500292227 |
+| 1 |    N_Days    | 0.8289304500292227 |
+| 2 |    Edema     | 0.8289304500292227 |
+| 3 |  Bilirubin   | 0.8289304500292227 |
+| 4 | Prothrombin  | 0.8289304500292227 |
+| 5 |    Stage     | 0.8289304500292227 |
+| 6 | Drug_Unknown | 0.8289304500292227 |
++---+--------------+--------------------+
+
+
+--------------------------------------------------------------------------------
+================================================================================
