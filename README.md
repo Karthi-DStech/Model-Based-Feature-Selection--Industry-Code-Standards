@@ -1,1 +1,1 @@
-# Model-Based-Feature-Selection--Industry-Code-Standards
+# Scalable-Model-Based-and-SFS-Feature-Selection (Industry Standard Methodology)
