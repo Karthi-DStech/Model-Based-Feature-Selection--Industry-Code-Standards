@@ -1,7 +1,3 @@
-from utils.hyperparameters import Hyperparameters
-from options.base_options import BaseOptions
-
-
 def make_network(network_name, *args, **kwargs):
     """
     This fucntion import and return model based
@@ -111,70 +107,70 @@ def make_params(param_name, *args, **kwargs):
         If the param_name is not implemented
     """
     if param_name.lower() == "logisticregression":
-        from utils.hyperparameters import Hyperparameters
+        from parameters.hyperparameters import Hyperparameters
 
         hyperparams = Hyperparameters(*args, **kwargs)
         get_params_func = hyperparams.get_logistic_regression_params
         return get_params_func
 
     elif param_name.lower() == "kneighborsclassifier":
-        from utils.hyperparameters import Hyperparameters
+        from parameters.hyperparameters import Hyperparameters
 
         hyperparams = Hyperparameters(*args, **kwargs)
         get_params_func = hyperparams.get_knn_params
         return get_params_func
 
     elif param_name.lower() == "svc":
-        from utils.hyperparameters import Hyperparameters
+        from parameters.hyperparameters import Hyperparameters
 
         hyperparams = Hyperparameters(*args, **kwargs)
         get_params_func = hyperparams.get_svc_params
         return get_params_func
 
     elif param_name.lower() == "decisiontreeclassifier":
-        from utils.hyperparameters import Hyperparameters
+        from parameters.hyperparameters import Hyperparameters
 
         hyperparams = Hyperparameters(*args, **kwargs)
         get_params_func = hyperparams.get_decision_tree_params
         return get_params_func
 
     elif param_name.lower() == "randomforestclassifier":
-        from utils.hyperparameters import Hyperparameters
+        from parameters.hyperparameters import Hyperparameters
 
         hyperparams = Hyperparameters(*args, **kwargs)
         get_params_func = hyperparams.get_random_forest_params
         return get_params_func
 
     elif param_name.lower() == "adaboostclassifier":
-        from utils.hyperparameters import Hyperparameters
+        from parameters.hyperparameters import Hyperparameters
 
         hyperparams = Hyperparameters(*args, **kwargs)
         get_params_func = hyperparams.get_ada_boost_params
         return get_params_func
 
     elif param_name.lower() == "gradientboostingclassifier":
-        from utils.hyperparameters import Hyperparameters
+        from parameters.hyperparameters import Hyperparameters
 
         hyperparams = Hyperparameters(*args, **kwargs)
         get_params_func = hyperparams.get_gradient_boosting_params
         return get_params_func
 
     elif param_name.lower() == "xgbclassifier":
-        from utils.hyperparameters import Hyperparameters
+        from parameters.hyperparameters import Hyperparameters
 
         hyperparams = Hyperparameters(*args, **kwargs)
         get_params_func = hyperparams.get_xgboost_params
         return get_params_func
 
     elif param_name.lower() == "catboostclassifier":
-        from utils.hyperparameters import Hyperparameters
+        from parameters.hyperparameters import Hyperparameters
 
         hyperparams = Hyperparameters(*args, **kwargs)
         get_params_func = hyperparams.get_cat_boost_params
         return get_params_func
 
     elif param_name.lower() == "lgbmclassifier":
-        from utils.hyperparameters import Hyperparameters
+        from parameters.hyperparameters import Hyperparameters
 
         hyperparams = Hyperparameters(*args, **kwargs)
         get_params_func = hyperparams.get_light_gbm_params

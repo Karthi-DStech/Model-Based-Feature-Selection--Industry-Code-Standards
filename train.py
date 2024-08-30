@@ -1,7 +1,7 @@
 from call_methods import make_network, make_params
 from utils.logs import Logger
-from utils.preprocessing import DataProcessor
-from utils.train_test_split import TrainTestProcessor
+from process.preprocessing import DataProcessor
+from process.train_test_split import TrainTestProcessor
 from options.train_options import TrainOptions
 from utils.save_utils import save_model_and_logs
 from feature_importance.calculate_sfs import CalculateSfsImportance

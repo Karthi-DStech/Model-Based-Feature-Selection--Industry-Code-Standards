@@ -36,7 +36,7 @@ class BaseOptions:
         self.parser.add_argument(
             "--data_path",
             type=str,
-            default="/Users/karthik/Desktop/cirrhosis.csv",
+            default="/Users/karthik/Desktop/Datasets/Cirrhosis-Prediction-Dataset/cirrhosis.csv",
             help="Path to the data file",
         )
 

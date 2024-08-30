@@ -3,7 +3,7 @@ from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from tabulate import tabulate
 import io
 
-from utils.feature_engineering import FeatureEngineering
+from feature_engineering.feature_engg_call_methods import call_feature_engineering
 
 
 class DataProcessor:
@@ -116,7 +116,7 @@ class DataProcessor:
         """
         if self.data is None:
             raise ValueError("Data not loaded. Please call load_data() first.")
-        
+
         if dtype_dict == ["None"] or dtype_dict is None:
             print("\nNo datatype should be changed.\n")
             return
@@ -285,32 +285,37 @@ class DataProcessor:
         # Add the conditions here.
         pass
 
-    def feature_engineering(self, feature_engg_names):
-        """
-        Perform feature engineering on the dataset.
+    def feature_engineering(self):
 
-        Parameters
-        ----------
-        feature_engg_names : list of str
-            The list of feature engineering functions to apply.
-        """
         if self.data is None:
             raise ValueError("Data not loaded. Please call load_data() first.")
 
-        if feature_engg_names == ["None"] or feature_engg_names is None:
-            print("\nNo feature engineering steps specified.\n")
-            return
+        if self._opt.calculate_feature_engg:
+            try:
 
-        feature_engineer = FeatureEngineering(self.data, self.logger, self._opt)
-
-        for feature_name in feature_engg_names:
-            feature_function = getattr(feature_engineer, feature_name, None)
-            if feature_function is not None:
-                self.data = feature_function()
-            else:
-                raise ValueError(
-                    f"Feature engineering '{feature_name}' not implemented."
+                feature_engineering_func = call_feature_engineering(
+                    self._opt.feature_engg_name, self.data, self.logger, self._opt
                 )
+                print(
+                    f"\nExecuting feature engineering: {self._opt.feature_engg_name}\n"
+                )
+                self.data = feature_engineering_func()
+                print(
+                    f"Feature engineering '{self._opt.feature_engg_name}' completed successfully.\n"
+                )
+
+                # ----- ADD OTHER FEATURE ENGINEERING METHODS HERE -----
+
+            except Exception as e:
+                raise ValueError(f"Error occurred during feature engineering: {e}")
+
+        else:
+            print("\nNo feature engineering to be performed.\n")
+            self.logger.update_log(
+                "data_processing",
+                "feature_engineering",
+                "No feature engineering performed.",
+            )
 
     def drop_columns(self):
         """
@@ -444,8 +449,7 @@ class DataProcessor:
         if dtype_dict:
             self.change_column_dtype(dtype_dict)
 
-        if feature_engg_names:
-            self.feature_engineering(feature_engg_names)
+        self.feature_engineering()
 
         if label_encode_columns or one_hot_encode_columns:
             self.encode_columns(label_encode_columns, one_hot_encode_columns)

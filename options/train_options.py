@@ -47,7 +47,7 @@ class TrainOptions(BaseOptions):
             "-m",
             "--model_name",
             type=str,
-            default="GradientBoostingClassifier",
+            default="LogisticRegression",
             choices=[
                 "LogisticRegression",
                 "KNeighborsClassifier",
@@ -154,14 +154,51 @@ class TrainOptions(BaseOptions):
             For mean, median and mode, the value to impute should be None. \
             For eg:{'Ever_Married': ('mode', None), Var_1: ('fillna', 'Unknown'),}.",
         )
+        
+        # ---- Feature Engineering Parameters ----
+        
+        self.parser.add_argument(
+            "--calculate_feature_engg",
+            type=bool,
+            default=False,
+            choices=[True, False],
+            help="Whether to perform feature engineering",
+        )
 
         self.parser.add_argument(
             "--feature_engg_name",
-            type=list,
-            default=None,
+            type=str,
+            default="calculate_total_days",
+            choices=["calculate_total_days", "separate_date_columns"],
             help="Name of the feature engineering column. eg: ['calculate_total_days'].",
         )
 
+        # -> calculate_total_days columns
+        
+        self.parser.add_argument(
+            "--starting_date_ctd",
+            type=str,
+            default="Date of Admission",
+            help="Starting date column for total days calculation using calculate_total_days in Feature Engineering.",
+        )
+        
+        self.parser.add_argument(
+            "--ending_date_ctd",
+            type=str,
+            default="Discharge Date",
+            help="Ending date column for total days calculation",
+        )
+        
+        # -> separate_date_columns columns 
+        
+        self.parser.add_argument(
+            "--date_column_sdc",
+            type=str,
+            default="Time",
+            help="Date column to separate using separate_date_columns in Feature Engineering.",
+        )  
+        
+        
         # XGBoost specific parameters for handling missing values
 
         self.parser.add_argument(
